@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: You're up and running!
 ---
 # 처음 써보는 Github Pages
