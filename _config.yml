@@ -3,8 +3,8 @@ description: IT개발을 하면서 공부한 내용을 공유하는 홈페이지
 
 url: http://kshyun87.github.io
 baseurl: ""
-paginate_path: "kshyun87.github.io/page:num/"
-permalink: kshyun87.github.io/:title/
+paginate_path: "/page:num/"
+permalink: /:title/
 
 markdown: kramdown
 highlighter: rouge
