@@ -1,3 +1,7 @@
+---
+layout: post
+title: You're up and running!
+---
 # 처음 써보는 Github Pages
 
 일단 테마는 기본 테마지만 다양하게 올려봐야지
