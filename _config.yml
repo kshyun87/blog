@@ -1,1 +1,25 @@
 theme: jekyll-theme-cayman
+
+title: "열심히 공부하자"
+name: "Kei stroy"
+url: "https:kshyun87.github.io"
+repository : "kshyun87/kshyun87.github.io"
+search : true
+
+author:
+    name    : "Kei"
+
+
+# Defaults
+defaults:
+  # _posts
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: single
+      author_profile: true
+      read_time: false # 해당 포스트를 읽은 시간이 표시되는데 기본값은 true이다.
+      comments: # true
+      share: true # 포스트 공유 기능을 활성화 할 것인지 정한다. 기본값은 true이다.
+      related: true
