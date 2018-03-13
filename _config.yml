@@ -1,25 +1,26 @@
-theme: jekyll-theme-cayman
+title: 개발자 Kei의 공부일기
+description: IT개발을 하면서 공부한 내용을 공유하는 홈페이지
 
-title: "열심히 공부하자"
-name: "Kei stroy"
-url: "https:kshyun87.github.io"
-repository : "kshyun87/kshyun87.github.io"
-search : true
+url: http://kshyun87.github.io
+baseurl: ""
+paginate_path: "kshyun87.github.io/page:num/"
+permalink: kshyun87.github.io/:title/
 
-author:
-    name    : "Kei"
+markdown: kramdown
+highlighter: rouge
+gems: [jekyll-paginate]
+paginate: 5
 
+navigation:
+ - title: Home
+   url: /index.html
+ - title: About
+   url: /about
+ - title: Contact
+   url: /contact
 
-# Defaults
-defaults:
-  # _posts
-  - scope:
-      path: ""
-      type: posts
-    values:
-      layout: single
-      author_profile: true
-      read_time: false # 해당 포스트를 읽은 시간이 표시되는데 기본값은 true이다.
-      comments: # true
-      share: true # 포스트 공유 기능을 활성화 할 것인지 정한다. 기본값은 true이다.
-      related: true
+social:
+   github: kshyun87
+   email: kshyun87@gmail.com
+
+google_analytics: ""
