@@ -73,4 +73,3 @@ function Comment(props) {
   );
 }
 ```
-![](/assets/img/markdown-img-paste-20180312190528688.png)            
