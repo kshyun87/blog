@@ -34,7 +34,7 @@ setInterval()함수는 tick함수를 매1초마다 rerendering 한다.
 화면에 자동으로 출력이 된다.ㅣ
 
 
-```js
+```JavaScript
 function Comment(props) {
   return (
     <div className="Comment">
@@ -50,7 +50,7 @@ function Comment(props) {
 }
 ```
 
-```JSX
+```jsx
 function Comment(props) {
   return (
     <div className="Comment">
