@@ -1,7 +1,7 @@
 title: 개발자 Kei의 공부일기
 description: IT개발을 하면서 공부한 내용을 공유하는 홈페이지
 
-url: http://kshyun87.github.io
+url: https://kshyun87.github.io
 baseurl: ""
 paginate_path: "/page:num/"
 permalink: /:title/
