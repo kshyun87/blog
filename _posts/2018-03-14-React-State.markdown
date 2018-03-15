@@ -10,7 +10,7 @@ title: React State and Lifecycle
 
 시계 컴포넌트를 만들어 보겠습니다.
 이전에 사용했던 시간 컴포넌트입니다.
-```js
+```JSX
 function tick() {
   const element = (
     <div>
@@ -27,7 +27,7 @@ setInterval(tick, 1000);
 ```
 
 이제 분리시켜서 시계 컴포넌트를 만들어보곘습니다.
-```
+```JSX
 function Clock(props){
     return(
         <div>
@@ -50,7 +50,7 @@ setInterval(tick, 1000);
 이럴때 사용되는 것이 state이고 이 state가 functional이 아닌 classes로 정의된 컴포넌트를 쓰는 이유중 하나입니다.
 
 일단 functional을 classes로 바꿔보죠
-```
+```JSX
 class Clock extends ReactDOM.Component {
     render(){
         return (
@@ -71,7 +71,7 @@ local state나 lifecycle hook가 그 이점입니다.
 
 Adding local state to a class
 먼저 this.props를 this.state로 바꿉니다.
-```
+```JSX
 class Clock extends Component {
     constructor(props){
         super(props);
@@ -94,7 +94,7 @@ constructor라는 구조체를 하나 선언해줍니다.
 this.state는 상속받은 props의 내용도 포함하면서 추가적으로 state로 선언한 date도 가진 상태 입니다.
 
 그리고 lifecycle을 지정해줍니다.
-```
+```JSX
 componentDidMount(){
 }
 
@@ -104,7 +104,7 @@ componentWillUnmount(){
 
 위 두개 메소드가 lifecylce관련된 메소드 입니다.
 componentDidMount()는 컴포넌트 DOM으로 렌더링된 이후 동작합니다.
-```
+```JSX
 componentDidMount() {
         this.timerID = setInterval(
           () => this.tick(),
@@ -122,7 +122,7 @@ this.state는 특별한 의미가 있지만 화면에 출력하는 것에 사용
 클래스의render()에서 사용되는 props는 this.props라면 그대로 가져와서 사용만 하는 것이고 this.state는 추가적으로 더 정의하여 사용할 수 있다는 것입니다.
 그리고 render()에서 사용되지 않는 것이라면 state로 사용할 수 없습니다.
 
-```
+```JSX
 class Clock extends Component {
     constructor(props){
         super(props);
@@ -174,7 +174,7 @@ props에 있는 값을 자식에게 전달 전달 하는 방식이기에 top-dow
 
 React앱에서, 구성 요소가 상태 저장인지 또는 상태 비 저장인지는 시간이 지남에 따라 변경될 수 있는 구성 요소의 구현 세부 사항으로 간준된다.
 Stateful 컴포넌트에서 stateless 컴포넌트를 사용할 수 있으며 그 반대의 경우도 마찬가지다.
-```
+```JSX
 function App(){
     return (
         <div>

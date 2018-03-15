@@ -9,7 +9,7 @@ React DOM은 해당하는 엘러먼트의 변경만 신경씁니다.
 
 ## React화면을 주기적으로 갱신해보자
 
-```jsx
+```JSX
 function tick() {
   const element = (
     <div>
@@ -34,7 +34,7 @@ setInterval()함수는 tick함수를 매1초마다 rerendering 한다.
 화면에 자동으로 출력이 된다.ㅣ
 
 
-```jsx
+```JSX
 function Comment(props) {
   return (
     <div className="Comment">
@@ -50,7 +50,7 @@ function Comment(props) {
 }
 ```
 
-```jsx
+```JSX
 function Comment(props) {
   return (
     <div className="Comment">
