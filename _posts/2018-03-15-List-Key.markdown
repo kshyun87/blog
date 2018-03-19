@@ -1,0 +1,304 @@
+# Lists and Keys
+
+리스트를 사용하려면 어떻게 해야할까요?
+map()함수를 이용하면 리스트를 가지고 각기 같은 동작을 수행할 수 있습니다.
+
+```jsx
+const numbers = [1, 2, 3, 4, 5];
+const doubled = numbers.map((number) => number * 2);
+console.log(doubled);
+```
+ 위 numbers 객체에 있는 리스트를 map함수로 각각의 값의 2배씩 해서 doubled로 지정했다.
+ 콘솔창에 doubled값을 확인하면 두배씩 커진 값을 확인할 수 있습니다.
+
+
+ React에서는 배열을 엘리먼트 목록으로 거의 동일하게 바꿀 수 있습니다.
+
+
+ ## Rendering Multiple Components
+
+엘리먼트를 포함하여 만들 수도 있다.
+이때 값은 {} 중괄호를 이용하여 표현합니다.
+
+
+```jsx
+const numbers = [1, 2, 3, 4, 5];
+const listItems = numbers.map((number)=>
+    <li>{number}</li>
+);
+ReactDOM.render(
+  <ul>{listItems}</ul>,
+  document.getElementById('root')
+);
+```
+
+
+위 코드를 보면 numbers라는 리스트를 map함수로 각각 "< li >" 엘리먼트로 바꿨습니다.
+그리고 render에서 < ul >엘리먼트 안에 listItems가 사용되어 변환된 내용을 렌더링 하더록 했습니다.
+다음과 같이 출력됩니다.
+
+![](/assets/img/markdown-img-paste-20180313182113177.png)
+
+## Basic List Component
+
+일반적으로 컴포넌트 안에 리스트를 렌더링하게 됩니다.
+
+그럼 이전에 작성했던 코드를 리스트 컴포넌트로 바꿔보겠습니다.
+```jsx
+function NumberLIst(props){
+    const numbers = props.numbers;
+    const listItems = numbers.map((number) =>
+        <li>{number}</li>
+    )
+    return(
+        <ul>{listItems}</ul>
+    )
+}
+
+const numbers = [1, 2, 3, 4, 5];
+ReactDOM.render(
+    <NumberList numbers={numbers} />,
+    document.getElementById('root')
+);
+```
+NumberList 컴포넌트로 기존 코드를 수정하였습니다.
+
+![](assets/markdown-img-paste-20180315145011430.png)
+화면은 정상적으로 출력되었는데,
+F12개발자 도구에서는 에러가 발생되었습니다.(위 화면)
+리스트 아이템을 위해서는 'key'가 제공되어야한다는 경고다.
+엘리리먼트들의 리스트들을 만들때 포함시켜야하는 특정한 문자열 요소가 'key'입니다.
+
+그럼 key라는 것을 리스트 아이템에 넣어보겠습니다.
+
+```jsx
+function NumberLIst(props){
+    const numbers = props.numbers;
+    const listItems = numbers.map((number) =>
+        <li key={number.toString()}>
+            {number}
+        </li>
+    )
+    return(
+        <ul>{listItems}</ul>
+    )
+}
+
+const numbers = [1, 2, 3, 4, 5];
+ReactDOM.render(
+    <NumberList numbers={numbers} />,
+    document.getElementById('root')
+);
+```
+key라고하는 attribute를 설정했습니다.
+그 값으로는 numer를 toString()으로 문자열로 만들어서 주었습니다.
+
+## Keys
+
+Keys는  아이템의 변화, 추가, 삭제에서 React 식별에 도움을 줍니다.
+엘리먼트에 안정적인 식별자(ID)를 주기위해서는 엘리먼트의 배열 안의 엘리먼트에게 키를 선언하는 것이 좋습니다.
+이전 코드에서 사용 되었던 것처럼말입니다.
+```jsx
+const listItems = numbers.map((number) =>
+    <li key={number.toString()}>
+        {number}
+    </li>
+)
+```
+위의 코드중 일부를 보면 이해하기 쉬울 것입니다.
+
+가장 좋은 방법은 key를 선택하는 것은 다른 아이템과 구분될 수 있는 유일한 문자열입니다.
+보통은 ID를 keys로 사용합니다.
+```jsx
+const notsItems = nodes.map((note) =>
+    <li key={note.id}>
+        {note.content}
+    </li>
+)
+```
+위 코드는 그 이해를 돕기위한 간략한 코드입니다.
+노트배열 아이템이 있고 그 각각을 리스트 엘리먼트로 변환하는 코드입니다.
+각 노트는 고유id가 존재하여 key로 사용했고 내용은 content부분에 있습니다.
+이렇게 선언하면 각 리스트 엘리먼트는 유니크한 개체가 될 것입니다.
+
+그런데 말입니다.
+만약에 저런 ID로 선언할 데이터가 없다면 어떻게 해야할까요?
+언제나 그렇듯 default로 사용할 수 있는 방법이 있습니다.
+아이템의 index를 이용하는 방법입니다.
+
+```jsx
+const notsItems = nodes.map((note, index) =>
+    <li key={index}>
+        {note.content}
+    </li>
+)
+```
+조금 전 코드를 살짝 수정했습니다.
+차이는 index가 파리미터로 추가되었다는 것이고 key값으로 note.id를 index로 변경했습니다. AngularJS에서나, Django에서나 사용하는 index를 이용하는 방법입니다.
+
+그런데, 이 방법은 배열의 아이템의 순서가 변경되는 경우에는 추천하지 않습니다.
+이는 성능에 부정적인 영향을 줄 수 있고, 컴포넌트 state에 문제를 야기시킬 수도 있습니다. 분명한 key를 등록하지 않는다면 React는 기본적으로 index를 key로 사용할 것 입니다.
+
+
+## Extracting Components with Keys
+
+키(key)는 주변 배열의 컨테스트 안에서 의미가 있습니다.
+function ListItem(props) {
+  const value = props.value;
+  return (
+    // Wrong! There is no need to specify the key here:
+    <li key={value.toString()}>
+      {value}
+    </li>
+  );
+}
+
+function NumberList(props) {
+  const numbers = props.numbers;
+  const listItems = numbers.map((number) =>
+    // Wrong! The key should have been specified here:
+    <ListItem value={number} />
+  );
+  return (
+    <ul>
+      {listItems}
+    </ul>
+  );
+}
+
+const numbers = [1, 2, 3, 4, 5];
+ReactDOM.render(
+  <NumberList numbers={numbers} />,
+  document.getElementById('root')
+);
+
+![](assets/markdown-img-paste-20180315184223195.png)
+
+위의 문제는 다음과 같이 해결하면 됩니다.
+
+```jsx
+function ListItem(props) {
+  // Correct! There is no need to specify the key here:
+  return <li>{props.value}</li>;
+}
+
+function NumberList(props) {
+  const numbers = props.numbers;
+  const listItems = numbers.map((number) =>
+    // Correct! Key should be specified inside the array.
+    <ListItem key={number.toString()}
+              value={number} />
+
+  );
+  return (
+    <ul>
+      {listItems}
+    </ul>
+  );
+}
+
+const numbers = [1, 2, 3, 4, 5];
+ReactDOM.render(
+  <NumberList numbers={numbers} />,
+  document.getElementById('root')
+);
+```
+ListItem 컴포넌트가 map()메소드로 동작하게 되기 때문에 각각 동작해야합니다. 그러기에 key가 필요한 영역은 ListItem 컴포넌트에서는 필요 없습니다.
+즉, map()을 사용할떄는 key도 같이 사용하자고 생각하시면 될 것 같습니다.
+
+
+## Keys Must Only Be Unique Among Siblings
+배열 안에서 사용되는 키는 다른 형제들(Item)사이에서 유일해야합니다.
+그러나 전역적(globally)으로 유니크할 필요는 없습니다. 즉 배열이 다르면 같은 키를 써도 상관 없다는 말입니다.
+
+다음은 다른 두 배열에서 같은 키를 사용하는 예제 입니다.
+
+```jsx
+function Blog(props) {
+  const sidebar = (
+    <ul>
+      {props.posts.map((post) =>
+        <li key={post.id}>
+          {post.title}
+        </li>
+      )}
+    </ul>
+  );
+  const content = props.posts.map((post) =>
+    <div key={post.id}>
+      <h3>{post.title}</h3>
+      <p>{post.content}</p>
+    </div>
+  );
+  return (
+    <div>
+      {sidebar}
+      <hr />
+      {content}
+    </div>
+  );
+}
+
+const posts = [
+  {id: 1, title: 'Hello World', content: 'Welcome to learning React!'},
+  {id: 2, title: 'Installation', content: 'You can install React from npm.'}
+];
+ReactDOM.render(
+  <Blog posts={posts} />,
+  document.getElementById('root')
+);
+```
+
+![](assets/markdown-img-paste-2018031610264629.png)
+코드를 보면, sidebar와 content로 나눠져있고 각각은 배열을 가지고 있습니다. 그리고 그 안에서 사용되는 key는 모두 post.id로 동일합니다.
+
+키(key)는 힌트로 React에 전달하지만 컴포넌트로 전달되는 것은 아닙니다. 만약 컴포넌트에서 같은 값을 필요로 하는 경우에는 다른 이름을 가진 prop로 전달해야합니다.
+```jsx
+const content = posts.map((post) =>
+  <Post
+    key={post.id}
+    id={post.id}
+    title={post.title} />
+);
+```
+위 코드에서 보면 prop로 key, id, title을 전달했습니다.
+그런데, Post컴포넌트는 props.id는 읽을 수 있지만 props.key는 읽을 수 없습니다. 즉 값을 전달하기 위해서는 id로 선언해서 전달하는 방법처럼 사용해야 한다는 것 입니다.
+
+## Embedding map() in JSX
+지금까진 임베디드형을 사용하지 않았습니다.
+이번에는 임베디드형을 사용해보겠습니다.
+다음 코드는 listItems 변수를 별도로 선언하고 이를 jsx에 포함시킨 코드입니다.
+```jsx
+function NumberList(props) {
+  const numbers = props.numbers;
+  const listItems = numbers.map((number) =>
+    <ListItem key={number.toString()}
+              value={number} />
+
+  );
+  return (
+    <ul>
+      {listItems}
+    </ul>
+  );
+}
+```
+listItems를 return에 바로 사용할 수도 있다.
+
+```jsx
+function NumberList(props) {
+  const numbers = props.numbers;
+  return (
+    <ul>
+      {numbers.map((number) =>
+        <ListItem key={number.toString()}
+                  value={number} />
+
+      )}
+    </ul>
+  );
+}
+```
+이런 것을 nested라고 표현합니다. 둥지라는 표현이죠. 즉, 안에 무언가 존재하는 형태라고 보면 됩니다.
+이런 방식은 때때로 깔끔한 코드가 될 수 있지만 남용될 수도 있습니다. JS와 같은 언어에서는 개발자가 읽기 좋은 코드방식이 맞는지확인해서 이런 기법을 쓸지 말지를 경정해야합니다.
+map()이 너무 nested되면 그건 컴포넌트를 추출하기에 좋은 상황이라는 것을 명심하시기 바랍니다. 즉 너무 둥지화가 되면 유지보수가 어려우니 컴포넌트로 분리시켜서 사용하는 것이 좋다는 의미입니다.
