@@ -2,7 +2,7 @@
 layout: post
 title: React Lists and Keys
 ---
-
+>이 내용은 react 공식사이트를 번역하고 임의로 내용을 추가한 내용입니다.
 # Lists and Keys
 
 리스트를 사용하려면 어떻게 해야할까요?
